@@ -137,7 +137,7 @@ case ${1:-} in
   spec) spec "$2" ;;
   run)
     triage --apply
-    for n in $(gh issue list --label factory:fix --json number --jq '.[].number'); do fix "$n"; done
-    for n in $(gh issue list --label factory:spec --json number --jq '.[].number'); do spec "$n"; done ;;
+    for n in $(jq -r '.issues[] | select(.type == "fix") | .number' "$F/triage.json"); do fix "$n"; done
+    for n in $(jq -r '.issues[] | select(.type == "spec") | .number' "$F/triage.json"); do spec "$n"; done ;;
   *) sed -n '2,9p' "$0" ;;
 esac
