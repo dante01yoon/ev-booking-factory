@@ -8,9 +8,6 @@
 | 제품 정책 | [prd.md](prd.md) | 로컬 시연 범위, 예약·결제·환불·시간·상태 정책과 열린 질문 | 미정 정책을 임의로 구현하지 않음. 외부 배포·실제 결제 금지 |
 | 수용 기준 | [acceptance.md](acceptance.md) | US별 AC, GIVEN/WHEN/THEN과 금액·시간 경계 | 조건부 AC는 답변 전 미확정. 문서의 기준 자체는 테스트 통과 증거가 아님 |
 | 작업·선행 조건 | [tasks.md](tasks.md) | T-01~T-49의 범위·완료 조건·선행과 C-01~C-11의 확인 항목 | 문서의 작업 번호만으로 구현 완료를 판정하지 않음. C-10 기술 구성은 부분 확정 |
-| 프로젝트 헌법 | [.specify/memory/constitution.md](../.specify/memory/constitution.md) | 문서 기반 정책, 테스트 우선, 데이터 보호, 검증 증거의 공통 원칙 | AC별 테스트 작성 → 사용자 확인 → 실제 실패 확인 → 구현. 구현 중 승인된 테스트 수정 금지 |
-| Spec Kit 작업 도구 | [.agents/skills](../.agents/skills), [.specify/scripts/bash](../.specify/scripts/bash), [.specify/templates](../.specify/templates) | specify·clarify·plan·tasks·analyze·checklist·constitution·converge·implement·taskstoissues의 10개 스킬, 스크립트·템플릿 | 설치된 절차 도구이며 모든 단계를 실행했다는 증거는 아님 |
-| Spec Kit 설정·워크플로 | [.specify/integration.json](../.specify/integration.json), [.specify/init-options.json](../.specify/init-options.json), [.specify/workflows/speckit/workflow.yml](../.specify/workflows/speckit/workflow.yml) | Codex skills 통합, 순차 기능 번호, specify → 명세 검토 → plan → 계획 검토 → tasks → implement 흐름 | 로컬 초기화 설정은 Spec Kit 1.1.0. 워크플로 자동 실행 여부는 별도 확인 필요 |
 | 기능별 설계·증거 | [specs/001-reservation-compatibility-rules](../specs/001-reservation-compatibility-rules) | spec·plan·tasks·research·data-model·contracts·quickstart·checklists·validation·evidence 보관 | [validation.md](../specs/001-reservation-compatibility-rules/validation.md)에 겹침 테스트 승인·Red·Green 기록이 있음. 전체 예약 서비스 완료 증거로 확대하지 않음 |
 | 규칙 구현 경계 | [src/rules](../src/rules) | 화면·API와 분리한 TypeScript 순수 함수 | 겹침 판정, 일반 예약 체크인 시간 판정, 사용자 취소 환불·중복 효과 방지 구현. 체크인 권한·상태 전이, 외부 환불·승계 실행은 이 함수들의 범위 밖 |
 | 규칙 테스트 | [tests/rules/overlap.test.ts](../tests/rules/overlap.test.ts), [checkin.test.ts](../tests/rules/checkin.test.ts), [refund.test.ts](../tests/rules/refund.test.ts) | AC를 추적하는 경계·중복·입력 불변성 검증 | `npm run test:rules`로 실행. 테스트 통과는 모바일 화면·토스 실연결 통과와 별개 |
