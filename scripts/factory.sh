@@ -75,7 +75,7 @@ fix() {
   local red; red=$(git -C "$wt" rev-parse HEAD)
 
   for round in 1 2; do
-    say "2/4 수정 (tests/ 잠금) · $round회차"
+    say "2/4 수정 (tests/ 잠금) · ${round}회차"
     stamp "fix#$n" "fix$round"
     codex_step "$wt" workspace-write -o "$wt/.factory/pr.md" \
       "\$factory-fix 로 이슈 #$n 을 고쳐 줘." > "$wt/.factory/fix.log" 2>&1
