@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import { searchStations as filterStations } from '../rules/search.ts';
 import { hasReservationOverlap } from '../rules/overlap.ts';
 import { canCheckInGeneralReservation } from '../rules/checkin.ts';
 import { reduceNoShowAndSuccession } from '../rules/no-show-succession.ts';
@@ -56,7 +57,7 @@ export function stateFor(userId: string) {
     payment: { available: paymentReady() } };
 }
 export function searchStations(query: string) {
-  return stations.filter(s => `${s.name} ${s.address}`.includes(query)).slice(0,200).map(s => ({
+  return filterStations(stations, query).slice(0,200).map(s => ({
     id: s.id, name: s.name, address: s.address, lat: s.lat, lng: s.lng,
     chargerCount: s.chargers.length, bookableCount: s.chargers.filter(c => !reasons(c).length).length,
   }));
