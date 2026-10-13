@@ -19,7 +19,7 @@ stamp() { printf '%s\t%s\t%s\n' "$(date +%s)" "$1" "$2" >> "$F/log.tsv"; }
 codex_step() {
   local dir=$1 sandbox=$2; shift 2
   git -C "$dir" diff --quiet main -- .codex || { echo "훅 파일이 main과 달라 멈춥니다."; exit 1; }
-  codex exec -C "$dir" -s "$sandbox" --dangerously-bypass-hook-trust "$@"
+  codex exec -C "$dir" -s "$sandbox" --dangerously-bypass-hook-trust "$@" < /dev/null
 }
 
 issue_json() { gh issue view "$1" --json number,title,body,labels > "$2"; }
