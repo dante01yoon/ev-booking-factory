@@ -49,7 +49,7 @@ triage() {
 worktree() {
   local n=$1 br=$2 wt="$F/wt/issue-$1"
   [[ -d $wt ]] || git worktree add -q -B "$br" "$wt" main
-  ln -sfn "$ROOT/node_modules" "$wt/node_modules"
+  [[ -d $wt/node_modules ]] || (cd "$wt" && npm ci --silent --prefer-offline >/dev/null)
   cp .env "$wt/.env" 2>/dev/null || true
   mkdir -p "$wt/.factory"
   issue_json "$n" "$wt/.factory/issue.json"
