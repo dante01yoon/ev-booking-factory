@@ -80,8 +80,10 @@ fix() {
     codex_step "$wt" workspace-write -o "$wt/.factory/pr.md" \
       "\$factory-fix 로 이슈 #$n 을 고쳐 줘." > "$wt/.factory/fix.log" 2>&1
     git -C "$wt" diff --quiet "$red" -- tests || { echo "수정 단계에서 tests/가 바뀌었습니다. 멈춥니다."; exit 1; }
-    (cd "$wt" && npm run -s test:rules >/dev/null 2>&1 && npm run -s typecheck >/dev/null 2>&1) \
-      || { echo "테스트나 타입 검사가 실패합니다."; continue; }
+    if ! (cd "$wt" && npm run -s test:rules >/dev/null 2>&1 && npm run -s typecheck >/dev/null 2>&1); then
+      [[ $round == 2 ]] && { gh issue edit "$n" --add-label factory:human >/dev/null; echo "테스트가 통과하지 않아 사람에게 넘깁니다."; exit 1; }
+      echo "  테스트나 타입 검사가 실패합니다. 한 번 더 고칩니다."; continue
+    fi
     say "  전체 테스트 통과 (초록)"
     git -C "$wt" add -A -- src docs && git -C "$wt" commit -qm "fix: 이슈 #$n" || true
 
